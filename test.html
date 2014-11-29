@@ -1,0 +1,63 @@
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="jsmodule.js"></script>
+
+	<script>
+		/*=======================================
+		      Here we define the module
+		=======================================*/
+		$.module('MsgBox', {
+           // Optional, can be overriden by user provided options
+           defaults: {
+           	  style: 'light'
+           },
+
+		   // Optional, but useful for view module
+		   events: {
+		      'click button' : 'sendMsg'  
+		       // Syntax: '[eventName] [selector]' : '[function name]'
+		   	   // selector is always resolved from the container dom if provided 
+		   },
+
+		   // init method is optional, you don't need to provide it if nothing to init.
+		   // In this example, we use it to initialize the msgbox style based on the user options.
+		   init: function() {
+		   	   // 'this.settings' can be used in any method to get merged options
+		       var color = this.settings.style == 'dark' ? '#705FB3' : '#A2B35F';  
+		       
+		       // 'this.$el' can be used in any method to get cached container dom
+		       this.$el.css('background-color', color);
+		   },
+
+		   sendMsg: function() {
+		       var msg = this.$el.find('input').val();
+		       this.$el.find('.msg').text(msg);	
+		   }
+		});
+
+		/*=======================================
+		      Here we use the module
+		=======================================*/
+		$(function() {
+		  var MsgBox = $.module('MsgBox');
+
+		  new MsgBox({ el: '#msgbox1' });
+		  new MsgBox({ el: '#msgbox2', style: 'dark' });
+		});
+	</script>
+</head>
+<body>
+	<div id="msgbox1">
+		<input type="text">
+		<button type="button">Send</button>
+		<p class="msg"></p>
+	</div>
+
+	<div id="msgbox2">
+		<input type="text">
+		<button type="button">Send</button>
+		<p class="msg"></p>
+	</div>	
+</body>	
+</html>
