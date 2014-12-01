@@ -1,0 +1,36 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jsmodule.js"></script>
+</head>
+<body>
+
+<div>
+    <input type="text" id="msgInput">
+    <button type="button" class="btn-send">Send</button>
+    <button type="button" class="btn-clear">Clear</button>
+    <p id="msg"></p>
+</div>
+
+<script>
+    // One-off module, still can take advantage all the goodness.
+    $.module({
+        // Omit defaults & init method in this example to keep it simple
+        events: {
+            'click .btn-send': 'sendMsg',
+            'click .btn-clear': 'clearMsg'
+        },
+
+        sendMsg: function() {
+            var msg = $('#msgInput').val();
+            $('#msg').text(msg);
+        },
+
+        clearMsg: function() {
+            $('#msg').text('');
+        }
+    })();  // Omit options to keep it simple
+</script>
+
+</body>
+</html>  

@@ -15,4 +15,8 @@ It supports ONLY features that are considered crucial to start writing modular j
    * event handlers are executed in the proper context, "this" always refers to the object instead of DOM
    * event selectors are always scoped to the container DOM if available
     
-For full example, have a look at 'example.html'   
+For full example, have a look at 'example-full.html'
+
+For quick start without any need to reuse your module, go to 'example-simple.html' for a quick check
+
+All the examples are self-explanatory.

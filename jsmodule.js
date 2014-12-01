@@ -30,19 +30,21 @@
             }
 
             // Initialize
-            if (typeof(this.init) == 'function') {
+            if (typeof this.init == 'function') {
                 this.init();
             }
         };
 
         module.prototype = prototype;
-        modules[name] = module;
+        if (name) modules[name] = module;
+
         return module;
     }
 
     var module = function () {
         if (arguments.length == 1) {
-            return modules[arguments[0]];
+            var arg = arguments[0];
+            return typeof arg == 'string' ? modules[arg] : defineModule(null, arg);
         } else if (arguments.length == 2) {
             return defineModule(arguments[0], arguments[1]);
         }
