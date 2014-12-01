@@ -40,10 +40,10 @@
          Here we use the module
          =======================================*/
         $(function () {
-            var MsgBox = $.module('MsgBox');
+            var msgbox = $.module('MsgBox');
 
-            new MsgBox({el: '#msgbox1'});
-            new MsgBox({el: '#msgbox2', style: 'dark'});
+            msgbox({el: '#msgbox1'});  // Same as: new msgbox({el: '#msgbox1'});
+            msgbox({el: '#msgbox2', style: 'dark'});
         });
     </script>
 </head>

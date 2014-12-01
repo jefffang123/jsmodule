@@ -5,6 +5,10 @@
 
     var defineModule = function (name, prototype) {
         var module = function (options) {
+            if (!(this instanceof module)) {
+                return new module(options);
+            }
+
             // Merge user options with defaults
             this.settings = $.extend({}, this.defaults, options);
 
