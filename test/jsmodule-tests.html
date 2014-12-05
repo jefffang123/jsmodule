@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <title>jsmodule Tests</title>
-    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.15.0.css">
+    <link rel="stylesheet" href="../lib/qunit/qunit-1.16.0.css">
 </head>
 <body>
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
-<script src="http://code.jquery.com/qunit/qunit-1.15.0.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="jsmodule.js"></script>
+<script src="../lib/qunit/qunit-1.16.0.js"></script>
+<script src="../lib/jquery.min.js"></script>
+<script src="../src/jsmodule.js"></script>
 
 <script>
     test('module plugin is registered in global jquery object', function () {
@@ -95,7 +95,6 @@
         equal(user.name, 'Jeff', 'init method get called and settings are passed as argument');
     });
 
-    module('events');
     test('events declaration', function () {
         $('<div id="testdiv"><button type="button">Submit</button><div class="custom"><span/></div></div><button type="button" id="secondBtn">Submit</button>').appendTo('#qunit-fixture');
 

@@ -39,7 +39,7 @@
                     throw 'invalid event selector: ' + selector;
                 }
             }
-            target.on(eventName, eventHandler.call(this, handler).bind(this));
+            target.on(eventName, $.proxy(eventHandler.call(this, handler), this));
         }
 
         // Initialize

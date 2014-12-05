@@ -1,0 +1,11 @@
+{
+  "name": "jsmodule",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-qunit": "^0.5.2"
+  }
+}
