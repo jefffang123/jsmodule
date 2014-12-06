@@ -1,3 +1,4 @@
+/*! jsmodule v0.1.0 07-12-2014 */
 (function ($) {
     'use strict';
 
@@ -20,7 +21,7 @@
         // Cache container element if provided
         if (this.settings.el) {
             this.$el = $(this.settings.el);
-            if (this.$el.length == 0) {
+            if (this.$el.length === 0) {
                 throw 'el cannot be located in dom: ' + this.settings.el;
             }
         }
@@ -35,7 +36,7 @@
             var target = this.$el || $(document);
             if (selector) {
                 target = target.find(selector);
-                if (target.length == 0) {
+                if (target.length === 0) {
                     throw 'invalid event selector: ' + selector;
                 }
             }
@@ -49,18 +50,18 @@
     };
 
     var defineModule = function (name, prototype) {
-        var module = function (options) {
-            if (!(this instanceof module)) {
-                return new module(options);
+        var Module = function (options) {
+            if (!(this instanceof Module)) {
+                return new Module(options);
             }
 
             initModule.call(this, options);
         };
 
-        module.prototype = prototype;
-        if (name) modules[name] = module;
+        Module.prototype = prototype;
+        if (name) modules[name] = Module;
 
-        return module;
+        return Module;
     };
 
     var module = function () {
@@ -76,3 +77,20 @@
         module: module
     });
 })(jQuery);
+;(function($) {
+
+  var o = $({});
+
+  $.subscribe = function() {
+    o.on.apply(o, arguments);
+  };
+
+  $.unsubscribe = function() {
+    o.off.apply(o, arguments);
+  };
+
+  $.publish = function() {
+    o.trigger.apply(o, arguments);
+  };
+
+}(jQuery));
