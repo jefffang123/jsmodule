@@ -16,8 +16,25 @@ It supports ONLY features that are considered crucial to start writing modular j
    * event handlers are executed in the proper context, "this" always refers to the object instead of DOM
    * event selectors are always scoped to the container DOM if available
 
-For full example, have a look at '[example-full.html](example/example-full.html)'
+## Examples
 
-For quick start without any need to reuse your module, go to '[example-simple.html](example/example-simple.html)' for a quick check
+### Basic example
 
-All the examples are self-explanatory.
+```javascript
+$.module({
+    // Omit defaults & init method in this example to keep it simple
+    events: {
+        'click .btn-send': 'sendMsg',
+        'click .btn-clear': 'clearMsg'
+    },
+    sendMsg: function() {
+        var msg = $('#msgInput').val();
+        $('#msg').text(msg);
+    },
+    clearMsg: function() {
+        $('#msg').text('');
+    }
+})();
+```
+
+For more detail example, have a look at '[example-full.html](example/example-full.html)'
