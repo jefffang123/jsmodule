@@ -1,17 +1,20 @@
-/*! jsmodule v0.1.0 07-12-2014 */
+/*! jsmodule v0.2.0 07-12-2014 */
 (function ($) {
     'use strict';
 
     var modules = {};
 
-    var eventHandler = function (handler) {
+    var eventHandler = function (module, handler) {
+        var handlerFunc;
+
         if (typeof handler == 'function') {
-            return handler;
-        } else if (typeof this[handler] == 'function') {
-            return this[handler];
+            handlerFunc = handler;
+        } else if (typeof module[handler] == 'function') {
+            handlerFunc = module[handler];
         } else {
             throw 'invalid event handler: ' + handler;
         }
+        return $.proxy(handlerFunc, module);
     };
 
     var initModule = function (options) {
@@ -33,14 +36,19 @@
                 selector = parts[2],
                 handler = this.events[e];
 
-            var target = this.$el || $(document);
-            if (selector) {
-                target = target.find(selector);
-                if (target.length === 0) {
-                    throw 'invalid event selector: ' + selector;
+            if ($.subscribe && eventName.charAt(0) == '[' &&
+                eventName.charAt(eventName.length - 1) == ']' && !selector) {
+                $.subscribe(eventName.slice(1, -1), eventHandler(this, handler));
+            } else {
+                var target = this.$el || $(document);
+                if (selector) {
+                    target = target.find(selector);
+                    if (target.length === 0) {
+                        throw 'invalid event selector: ' + selector;
+                    }
                 }
+                target.on(eventName, eventHandler(this, handler));
             }
-            target.on(eventName, $.proxy(eventHandler.call(this, handler), this));
         }
 
         // Initialize

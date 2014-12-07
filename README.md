@@ -15,6 +15,9 @@ It supports ONLY features that are considered crucial to start writing modular j
    * single place to view all event mappings for the module
    * event handlers are executed in the proper context, "this" always refers to the object instead of DOM
    * event selectors are always scoped to the container DOM if available
+* A simple mechanism for pub/sub
+   * [jQuery Tiny Pub/Sub](https://github.com/cowboy/jquery-tiny-pubsub) is included because it's also tiny
+   * same event mapping mechanism for topic subscribing
 
 ## Examples
 
@@ -37,4 +40,5 @@ $.module({
 })();
 ```
 
-For more detail example, have a look at '[example-full.html](example/example-full.html)'
+* For more complex example, have a look at [example-full.html](example/example-full.html)
+* Check [example-pubsub.html](example/example-pubsub.html) to see how pub/sub works

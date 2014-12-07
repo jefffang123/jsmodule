@@ -1,0 +1,63 @@
+<html>
+<head>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../dist/jsmodule.min.js"></script>
+</head>
+<body>
+
+<div>
+    <p>It's in the midnight...</p>
+
+    <div id="baby">
+        <p>
+            <button type="button">Click here for baby to start crying</button>
+        </p>
+        Baby: <span class="msg"/>
+    </div>
+    <div id="mum">Mum: <span class="msg"/></div>
+    <div id="dad">Dad: <span class="msg"/></div>
+    <div id="thief">Thief: <span class="msg"/></div>
+</div>
+
+<script>
+    // Baby
+    $.module({
+        events: {
+            'click button': function () {
+                this.$el.find('.msg').text('start crying...');
+                $.publish('baby-crying');
+            }
+        }
+    })({el: '#baby'});
+
+    // Mum
+    $.module({
+        events: {
+            '[baby-crying]': function () {
+                this.$el.find('.msg').text('switching on the light...');
+                $.publish('light-on');
+            }
+        }
+    })({el: '#mum'});
+
+    // Dad
+    $.module({
+        events: {
+            '[light-on]': function () {
+                this.$el.find('.msg').text('light is switched on, wake up');
+            }
+        }
+    })({el: '#dad'});
+
+    // Thief
+    $.module({
+        events: {
+            '[light-on]': function () {
+                this.$el.find('.msg').text('light is switched on, escaping...');
+            }
+        }
+    })({el: '#thief'});
+</script>
+
+</body>
+</html>
