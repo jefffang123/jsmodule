@@ -24,7 +24,7 @@
     $.module({
         events: {
             'click button': function () {
-                this.$el.find('.msg').text('start crying...');
+                this.$('.msg').text('start crying...');
                 $.publish('baby-crying');
             }
         }
@@ -34,7 +34,7 @@
     $.module({
         events: {
             '[baby-crying]': function () {
-                this.$el.find('.msg').text('switching on the light...');
+                this.$('.msg').text('switching on the light...');
                 $.publish('light-on');
             }
         }
@@ -44,7 +44,7 @@
     $.module({
         events: {
             '[light-on]': function () {
-                this.$el.find('.msg').text('light is switched on, wake up');
+                this.$('.msg').text('light is switched on, wake up');
             }
         }
     })({el: '#dad'});
@@ -53,7 +53,7 @@
     $.module({
         events: {
             '[light-on]': function () {
-                this.$el.find('.msg').text('light is switched on, escaping...');
+                this.$('.msg').text('light is switched on, escaping...');
             }
         }
     })({el: '#thief'});

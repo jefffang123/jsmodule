@@ -65,6 +65,17 @@ test('this.$el', function () {
 
 });
 
+test('this.$', function () {
+    $('<div id="testdiv"><span class="msg"/></div><span class="msg"/>').appendTo('#qunit-fixture');
+    var user = $.module({})({el: '#testdiv'});
+    strictEqual(typeof user.$, 'function', 'this.$ should be a function');
+    equal(user.$('.msg').length, 1, 'this.$(selector) is a shortcut of this.$el.find(selector)');
+
+    user = $.module({})();
+    strictEqual(typeof user.$, 'function', 'this.$ is also available if module is not attached to dom');
+    equal(user.$('body').length, 1, 'if module is not attached to dom, this.$(selector) is same as $(selector)');
+});
+
 test('init method', function () {
     var user = $.module({})();
     strictEqual(user.init, undefined, 'init method is optional');

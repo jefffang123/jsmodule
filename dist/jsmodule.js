@@ -1,4 +1,4 @@
-/*! jsmodule v0.2.0 07-12-2014 */
+/*! jsmodule v0.3.0 09-12-2014 */
 (function ($) {
     'use strict';
 
@@ -66,8 +66,15 @@
             initModule.call(this, options);
         };
 
-        Module.prototype = prototype;
-        if (name) modules[name] = Module;
+        Module.prototype = $.extend({
+            $: function (selector) {
+                return $(selector, this.$el || $(document));
+            }
+        }, prototype);
+
+        if (name) {
+            modules[name] = Module;
+        }
 
         return Module;
     };

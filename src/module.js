@@ -65,8 +65,15 @@
             initModule.call(this, options);
         };
 
-        Module.prototype = prototype;
-        if (name) modules[name] = Module;
+        Module.prototype = $.extend({
+            $: function (selector) {
+                return $(selector, this.$el || $(document));
+            }
+        }, prototype);
+
+        if (name) {
+            modules[name] = Module;
+        }
 
         return Module;
     };
