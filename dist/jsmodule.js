@@ -1,4 +1,4 @@
-/*! jsmodule v0.3.0 09-12-2014 */
+/*! jsmodule v0.3.1 16-12-2014 */
 (function ($) {
     'use strict';
 
@@ -41,13 +41,7 @@
                 $.subscribe(eventName.slice(1, -1), eventHandler(this, handler));
             } else {
                 var target = this.$el || $(document);
-                if (selector) {
-                    target = target.find(selector);
-                    if (target.length === 0) {
-                        throw 'invalid event selector: ' + selector;
-                    }
-                }
-                target.on(eventName, eventHandler(this, handler));
+                target.on(eventName, selector, eventHandler(this, handler));
             }
         }
 

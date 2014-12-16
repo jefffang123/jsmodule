@@ -148,19 +148,6 @@ test('events registered to document if el not provided', function () {
         .off('click');  // has to manually reset because it's not inside fixture
 });
 
-test('event selector error detection', function () {
-    $('<div id="testdiv"/>').appendTo('#qunit-fixture');
-
-    throws(function () {
-        $.module({
-            events: {
-                'click .notexist': function () {
-                }
-            }
-        })({el: '#testdiv'});
-    }, 'invalid event selector: .notexist', 'detect invalid event selector and provide helpful error message');
-});
-
 test('event handler error detection', function () {
     $('<div id="testdiv"/>').appendTo('#qunit-fixture');
 

@@ -40,13 +40,7 @@
                 $.subscribe(eventName.slice(1, -1), eventHandler(this, handler));
             } else {
                 var target = this.$el || $(document);
-                if (selector) {
-                    target = target.find(selector);
-                    if (target.length === 0) {
-                        throw 'invalid event selector: ' + selector;
-                    }
-                }
-                target.on(eventName, eventHandler(this, handler));
+                target.on(eventName, selector, eventHandler(this, handler));
             }
         }
 
