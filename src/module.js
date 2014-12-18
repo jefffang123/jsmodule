@@ -69,7 +69,7 @@
         return Module;
     };
 
-    var module = function () {
+    $.module = function () {
         if (arguments.length == 1) {
             var arg = arguments[0];
             return typeof arg === 'string' ? modules[arg] : defineModule(null, arg);
@@ -77,8 +77,4 @@
             return defineModule(arguments[0], arguments[1]);
         }
     };
-
-    $.extend({
-        module: module
-    });
 })(jQuery);
