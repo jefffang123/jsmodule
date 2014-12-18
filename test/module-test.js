@@ -1,10 +1,10 @@
 test('module plugin is registered in global jquery object', function () {
-    ok(typeof $.module == 'function', '$.module is available');
+    ok(typeof $.module === 'function', '$.module is available');
 });
 
 test('define module and create multiple instances', function () {
     var User = $.module('User', {});
-    equal(typeof User, 'function', 'module is returned as a constructor function');
+    strictEqual(typeof User, 'function', 'module is returned as a constructor function');
 
     equal($.module('User'), User, 'module can be retrieved later');
 
@@ -18,7 +18,7 @@ test('define module and create multiple instances', function () {
 
 test('define module and run right away', function () {
     var user = $.module({})();
-    equal(typeof user, 'object');
+    strictEqual(typeof user, 'object');
 });
 
 test('module fields and methods are accessible', function () {

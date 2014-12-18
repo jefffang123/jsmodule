@@ -6,9 +6,9 @@
     var eventHandler = function (module, handler) {
         var handlerFunc;
 
-        if (typeof handler == 'function') {
+        if (typeof handler === 'function') {
             handlerFunc = handler;
-        } else if (typeof module[handler] == 'function') {
+        } else if (typeof module[handler] === 'function') {
             handlerFunc = module[handler];
         } else {
             throw 'invalid event handler: ' + handler;
@@ -42,7 +42,7 @@
         }
 
         // Initialize
-        if (typeof this.init == 'function') {
+        if (typeof this.init === 'function') {
             this.init(this.settings);
         }
     };
@@ -72,7 +72,7 @@
     var module = function () {
         if (arguments.length == 1) {
             var arg = arguments[0];
-            return typeof arg == 'string' ? modules[arg] : defineModule(null, arg);
+            return typeof arg === 'string' ? modules[arg] : defineModule(null, arg);
         } else if (arguments.length == 2) {
             return defineModule(arguments[0], arguments[1]);
         }
