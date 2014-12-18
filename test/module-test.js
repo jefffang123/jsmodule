@@ -1,3 +1,9 @@
+module('core', {
+    setup: function () {
+        $.moduleSettings({putToGlobal: false});
+    }
+});
+
 test('module plugin is registered in global jquery object', function () {
     ok(typeof $.module === 'function', '$.module is available');
 });
@@ -21,10 +27,14 @@ test('define module and run right away', function () {
     strictEqual(typeof user, 'object');
 });
 
-test('define module with wrong parameter number', function () {
+test('$.module parameter check', function () {
     throws(function () {
         $.module();
-    }, 'at least one argument needs to be specified', 'Provide meaningful error message if no argument is provided to $.module');
+    }, 'wrong argument number: 0', 'detect error if no argument is provided');
+
+    throws(function () {
+        $.module('test', {}, {});
+    }, 'wrong argument number: 3', 'detect error if more than two arguments are provided');
 });
 
 test('module fields and methods are accessible', function () {
@@ -57,6 +67,22 @@ test('module settings', function () {
     deepEqual(user3.settings, {}, "empty settings shouldn't cause issue");
 });
 
+test('module can be registered to global', function () {
+    $.moduleSettings({putToGlobal: true});
+
+    var user = $.module('example.user1', {});
+
+    user();
+    ok(example.user1 instanceof user, 'use module name to register module instance by default');
+
+    user({id: 'example.user2'});
+    ok(example.user2 instanceof user, 'if id is specified, use id to register module instance');
+
+    deepEqual(Object.keys(example), ['user1', 'user2'], 'module instances are grouped into namespace');
+
+    delete window.example;
+});
+
 test('this.$el', function () {
     var user = $.module({})();
     strictEqual(user.$el, undefined, 'el is optional');
@@ -64,6 +90,9 @@ test('this.$el', function () {
     $('<div id="testdiv"/>').appendTo('#qunit-fixture');
     user = $.module({})({el: '#testdiv'});
     equal(user.$el.length, 1, 'can access $el if module is attached to dom');
+
+    user = $.module({})({el: '#notexist'});
+    strictEqual(user.$el, undefined, 'silently ignore el if it is not in dom');
 });
 
 test('this.$', function () {

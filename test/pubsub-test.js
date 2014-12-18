@@ -1,4 +1,10 @@
-test('pubsub without args', function () {
+module('pubsub', {
+    setup: function () {
+        $.moduleSettings({putToGlobal: false});
+    }
+});
+
+test('send message without args', function () {
     $.module({
         events: {
             '[userAdded-noargs]': 'userAdded'
@@ -12,7 +18,7 @@ test('pubsub without args', function () {
     $.publish('userAdded-noargs');
 });
 
-test('pubsub with args as array', function () {
+test('send message with args as array', function () {
     $.module({
         events: {
             '[userAdded-array]': 'userAdded'
@@ -27,7 +33,7 @@ test('pubsub with args as array', function () {
     $.publish('userAdded-array', ['Jeff', 'Fang']);
 });
 
-test('pubsub with args as object', function () {
+test('send message with args as object', function () {
     var user = {
         firstName: 'Jeff',
         lastName: 'Fang'

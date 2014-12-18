@@ -1,6 +1,11 @@
 (function ($) {
     'use strict';
 
+    // Global settings
+    var moduleSettings = {
+        putToGlobal: true
+    };
+
     var modules = {};
 
     var eventHandler = function (module, handler) {
@@ -22,7 +27,10 @@
 
         // Cache container element if provided
         if (this.settings.el) {
-            this.$el = $(this.settings.el);
+            var el = $(this.settings.el);
+            if (el.length > 0) {
+                this.$el = el;
+            }
         }
 
         // Register event handlers if provided, make sure "this" always refers to current object instead of DOM
@@ -47,6 +55,19 @@
         }
     };
 
+    var putToGlobal = function (id, obj) {
+        var paths = id.split('.'),
+            parent = window;
+        for (var i = 0; i < paths.length; i++) {
+            var path = paths[i];
+            if (i < paths.length - 1) {
+                parent = parent[path] || (parent[path] = {});
+            } else {
+                parent[path] = obj;
+            }
+        }
+    };
+
     var defineModule = function (name, prototype) {
         var Module = function (options) {
             if (!(this instanceof Module)) {
@@ -54,6 +75,13 @@
             }
 
             initModule.call(this, options);
+
+            if (moduleSettings.putToGlobal) {
+                var globalId = options && options.id || name;
+                if (globalId) {
+                    putToGlobal(globalId, this);
+                }
+            }
         };
 
         Module.prototype = $.extend({
@@ -73,10 +101,14 @@
         if (arguments.length == 1) {
             var arg = arguments[0];
             return typeof arg === 'string' ? modules[arg] : defineModule(null, arg);
-        } else if (arguments.length >= 2) {
+        } else if (arguments.length == 2) {
             return defineModule(arguments[0], arguments[1]);
         } else {
-            throw 'at least one argument needs to be specified';
+            throw 'wrong argument number: ' + arguments.length;
         }
+    };
+
+    $.moduleSettings = function (settings) {
+        $.extend(moduleSettings, settings);
     };
 })(jQuery);

@@ -2,17 +2,22 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        banner: '/*! <%= pkg.name %> v<%= pkg.version %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
+        banner: '/*! <%= pkg.name %> v<%= pkg.version %> <%= grunt.task.current.target %>, <%= grunt.template.today("dd-mm-yyyy") %> */\n',
 
+        clean: ['dist'],
         concat: {
             options: {
                 separator: ';',
                 banner: '<%= banner %>',
                 stripBanners: true
             },
-            dist: {
-                src: ['src/**/*.js', 'lib/tiny-pubsub.js'],
+            standard: {
+                src: ['src/module.js', 'lib/tiny-pubsub.js'],
                 dest: 'dist/<%= pkg.name %>.js'
+            },
+            drupal7: {
+                src: ['src/module.js', 'src/drupal7-ext.js', 'lib/tiny-pubsub.js'],
+                dest: 'dist/<%= pkg.name %>-drupal7.js'
             }
         },
         uglify: {
@@ -20,9 +25,7 @@ module.exports = function (grunt) {
                 banner: '<%= banner %>'
             },
             dist: {
-                files: {
-                    'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
-                }
+                files: grunt.file.expandMapping(['dist/*.js', '!dist/*.min.js'], '.', {ext: '.min.js'})
             }
         },
         qunit: {
@@ -42,10 +45,11 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('test', ['jshint', 'qunit']);
-    grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
 };

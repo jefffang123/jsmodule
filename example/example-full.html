@@ -42,8 +42,17 @@
         $(function () {
             var msgbox = $.module('MsgBox');
 
-            msgbox({el: '#msgbox1'});  // Same as: new msgbox({el: '#msgbox1'});
-            msgbox({el: '#msgbox2', style: 'dark'});
+            // First message box
+            msgbox({el: '#msgbox1'});
+
+            // Second message box
+            msgbox({
+                el: '#msgbox2',
+                style: 'dark', // Override default 'light' style
+                // id is optional, if specified, the module instance will be set to window object
+                // using this path so that it can be accessed for debugging in browser or in unit test
+                id: 'jsmodule.example.msgbox2'
+            });
         });
     </script>
 </head>

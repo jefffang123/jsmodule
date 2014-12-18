@@ -1,0 +1,37 @@
+<html>
+<head>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/drupal/7.x/drupal.js"></script>
+    <script src="../dist/jsmodule-drupal7.min.js"></script>
+</head>
+<body>
+
+<div>
+    <input type="text" id="msgInput">
+    <button type="button" class="btn-send">Send</button>
+    <button type="button" class="btn-clear">Clear</button>
+    <p id="msg"></p>
+</div>
+
+<script>
+    (function ($) {
+        $.module('MsgBox', {
+            events: {
+                'click .btn-send': 'sendMsg',
+                'click .btn-clear': 'clearMsg'
+            },
+
+            sendMsg: function () {
+                var msg = $('#msgInput').val();
+                $('#msg').text(msg);
+            },
+
+            clearMsg: function () {
+                $('#msg').text('');
+            }
+        })();
+    })(jQuery);
+</script>
+
+</body>
+</html>
