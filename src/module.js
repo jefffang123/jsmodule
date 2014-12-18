@@ -73,8 +73,10 @@
         if (arguments.length == 1) {
             var arg = arguments[0];
             return typeof arg === 'string' ? modules[arg] : defineModule(null, arg);
-        } else if (arguments.length == 2) {
+        } else if (arguments.length >= 2) {
             return defineModule(arguments[0], arguments[1]);
+        } else {
+            throw 'at least one argument needs to be specified';
         }
     };
 })(jQuery);

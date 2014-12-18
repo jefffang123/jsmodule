@@ -21,6 +21,12 @@ test('define module and run right away', function () {
     strictEqual(typeof user, 'object');
 });
 
+test('define module with wrong parameter number', function () {
+    throws(function () {
+        $.module();
+    }, 'at least one argument needs to be specified', 'Provide meaningful error message if no argument is provided to $.module');
+});
+
 test('module fields and methods are accessible', function () {
     var user = $.module({
         name: 'Jeff',
