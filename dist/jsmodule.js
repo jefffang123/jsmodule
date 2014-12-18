@@ -1,4 +1,4 @@
-/*! jsmodule v0.3.1 16-12-2014 */
+/*! jsmodule v0.3.2 18-12-2014 */
 (function ($) {
     'use strict';
 
@@ -7,9 +7,9 @@
     var eventHandler = function (module, handler) {
         var handlerFunc;
 
-        if (typeof handler == 'function') {
+        if (typeof handler === 'function') {
             handlerFunc = handler;
-        } else if (typeof module[handler] == 'function') {
+        } else if (typeof module[handler] === 'function') {
             handlerFunc = module[handler];
         } else {
             throw 'invalid event handler: ' + handler;
@@ -24,9 +24,6 @@
         // Cache container element if provided
         if (this.settings.el) {
             this.$el = $(this.settings.el);
-            if (this.$el.length === 0) {
-                throw 'el cannot be located in dom: ' + this.settings.el;
-            }
         }
 
         // Register event handlers if provided, make sure "this" always refers to current object instead of DOM
@@ -46,7 +43,7 @@
         }
 
         // Initialize
-        if (typeof this.init == 'function') {
+        if (typeof this.init === 'function') {
             this.init(this.settings);
         }
     };
@@ -76,7 +73,7 @@
     var module = function () {
         if (arguments.length == 1) {
             var arg = arguments[0];
-            return typeof arg == 'string' ? modules[arg] : defineModule(null, arg);
+            return typeof arg === 'string' ? modules[arg] : defineModule(null, arg);
         } else if (arguments.length == 2) {
             return defineModule(arguments[0], arguments[1]);
         }
