@@ -58,11 +58,6 @@ test('this.$el', function () {
     $('<div id="testdiv"/>').appendTo('#qunit-fixture');
     user = $.module({})({el: '#testdiv'});
     equal(user.$el.length, 1, 'can access $el if module is attached to dom');
-
-    throws(function () {
-        $.module({})({el: '.notexist'});
-    }, 'el cannot be located in dom: .notexist', 'should throw error immediately if el cannot be located');
-
 });
 
 test('this.$', function () {

@@ -23,9 +23,6 @@
         // Cache container element if provided
         if (this.settings.el) {
             this.$el = $(this.settings.el);
-            if (this.$el.length === 0) {
-                throw 'el cannot be located in dom: ' + this.settings.el;
-            }
         }
 
         // Register event handlers if provided, make sure "this" always refers to current object instead of DOM
