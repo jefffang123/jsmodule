@@ -24,8 +24,15 @@ module.exports = function (grunt) {
             options: {
                 banner: '<%= banner %>'
             },
-            dist: {
-                files: grunt.file.expandMapping(['dist/*.js', '!dist/*.min.js'], '.', {ext: '.min.js'})
+            standard: {
+                files: {
+                    'dist/jsmodule.min.js': ['dist/jsmodule.js']
+                }
+            },
+            drupal7: {
+                files: {
+                    'dist/jsmodule-drupal7.min.js': ['dist/jsmodule-drupal7.js']
+                }
             }
         },
         qunit: {
